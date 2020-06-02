@@ -12,13 +12,13 @@ import java.util.List;
  *
  * @author Yizrahya Paulus <yizrahya.paulus@gmail.com>
  */
-public class BrainOps {
+public class GameEngine {
     
    private int gameRows,gameCols;
    private Cell.CellTypes[][] cellStatus;
    
    
-    public BrainOps(int rows, int cols){
+    public GameEngine(int rows, int cols){
         this.cellStatus = new Cell.CellTypes[rows][cols];
     }
    
@@ -79,7 +79,6 @@ public class BrainOps {
         for(int line = 0; line < this.cellStatus[0].length; line++){
             Cell.CellTypes lineState = this.cellStatus[line][0];
             boolean win = true;
-//            if(lineState != Cell.CellTypes.EMPTY){
             for(int col = 0; col < this.cellStatus[0].length; col++){
                 if(lineState == Cell.CellTypes.EMPTY){
                     win = false;
@@ -90,13 +89,12 @@ public class BrainOps {
                     break;
                 }
             }
-//            }
             if(win){
-//               return player.getPlayerByCellType(lineState);
                  winnerName = player.getPlayerByCellType(lineState);
                 
             }
         }
+        
         //Cols
         for(int col = 0; col < this.cellStatus[0].length; col++){
             Cell.CellTypes colState = this.cellStatus[0][col];
@@ -108,10 +106,10 @@ public class BrainOps {
                 }
             }
             if(win){
-//                return player.getPlayerByCellType(colState);
                   winnerName = player.getPlayerByCellType(colState);
             }
         }
+        
         //Cross
         Cell.CellTypes pCrossState = this.cellStatus[0][0];
         Cell.CellTypes nCrossState = this.cellStatus[0][this.cellStatus[0].length - 1];
@@ -126,11 +124,9 @@ public class BrainOps {
             }
         }
         if(pWin){
-//            return player.getPlayerByCellType(pCrossState);
               winnerName = player.getPlayerByCellType(pCrossState);
         }
         else if(nWin){
-//            return player.getPlayerByCellType(nCrossState);
               winnerName = player.getPlayerByCellType(nCrossState);
         }
         else if(winnerName == ""){

@@ -5,7 +5,7 @@
  */
 package com.me.endpoints;
 
-import com.me.objects.BrainOps;
+import com.me.objects.GameEngine;
 import com.me.objects.Cell;
 import com.me.objects.Player;
 import java.io.IOException;
@@ -21,8 +21,8 @@ import javax.servlet.http.HttpSession;
  *
  * @author Yizrahya Paulus <yizrahya.paulus@gmail.com>
  */
-@WebServlet(name = "TicTacToeServlet", urlPatterns = {"/TicTacToeServlet"})
-public class TicTacToeServlet extends HttpServlet {
+@WebServlet(name = "TicTacToe", urlPatterns = {"/TicTacToe"})
+public class TicTacToe extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -45,29 +45,24 @@ public class TicTacToeServlet extends HttpServlet {
             int colIndex = Integer.parseInt(request.getParameter("col"));
             
             
-            BrainOps brainOps = (BrainOps) session.getAttribute("brainOps");
+            GameEngine gameEngine = (GameEngine) session.getAttribute("gameEngine");
             boolean isPlayerOne = (boolean) session.getAttribute("isPlayerOne");
             Player player = new Player();
             
-            //get PLAYERS, cols,rows from cookies
-//            BrainOps brainOps = new BrainOps(3,3);
-            
-            //swithplayermethod
-            
             //set selected cells
             if(isPlayerOne){
-                brainOps.setSelectedCell(player.getPLAYERONENAME(), rowIndex, colIndex);
+                gameEngine.setSelectedCell(player.getPLAYERONENAME(), rowIndex, colIndex);
                 isPlayerOne = false;
             }else{
-                brainOps.setSelectedCell(player.getPLAYERTWONAME(), rowIndex, colIndex);
+                gameEngine.setSelectedCell(player.getPLAYERTWONAME(), rowIndex, colIndex);
                 isPlayerOne = true;
             }
             
-            Cell.CellTypes[][] cellDatas = brainOps.getGameGrid();
+            Cell.CellTypes[][] cellDatas = gameEngine.getGameGrid();
             
             
             //check winner
-            String winner = brainOps.getWinner();
+            String winner = gameEngine.getWinner();
             
             
             //reload tictactoe.jsp

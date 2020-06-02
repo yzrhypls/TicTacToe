@@ -5,7 +5,7 @@
  */
 package com.me.endpoints;
 
-import com.me.objects.BrainOps;
+import com.me.objects.GameEngine;
 import com.me.objects.Cell;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -43,8 +43,10 @@ public class InitializeGame extends HttpServlet {
             int rows = 0;
             int cols = 0;
                     
+            String rowString = request.getParameter("rows");
+            String colString = request.getParameter("cols");
             
-            if(request.getParameter("rows")!= null && request.getParameter("cols") != null){
+            if(rowString != null && colString != null && !rowString.isEmpty() && !colString.isEmpty()){
                 rows = Integer.parseInt(request.getParameter("rows"));
                 cols = Integer.parseInt(request.getParameter("cols"));
             }else{
@@ -53,13 +55,13 @@ public class InitializeGame extends HttpServlet {
             }
             
             
-            BrainOps brainOps = new BrainOps(rows,cols);
-            Cell.CellTypes[][] cellDatas = brainOps.initializeGame(rows, cols);
+            GameEngine gameEngine = new GameEngine(rows,cols);
+            Cell.CellTypes[][] cellDatas = gameEngine.initializeGame(rows, cols);
             boolean isPlayerOne = true;
             
             session.setAttribute("winner", null);
             session.setAttribute("isPlayerOne", isPlayerOne);
-            session.setAttribute("brainOps", brainOps);
+            session.setAttribute("gameEngine", gameEngine);
             session.setAttribute("gameCells", cellDatas);
             
             request.getRequestDispatcher("tictactoe.jsp").forward(request, response);
