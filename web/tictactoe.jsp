@@ -45,56 +45,53 @@ Author     : Yizrahya Paulus <yizrahya.paulus@gmail.com>
             <c:choose> 
                 <c:when test="${isPlayerOne == true && (winner == null || winner == '')}">
                     <h2  class="grid" align="center" >PLAYERONE turn....</h1>
-                    </c:when>
-                    <c:when test="${isPlayerOne == false && (winner == null || winner == '')}">
-                        <h2  class="grid" align="center" >PLAYERTWO turn....</h1>
-                        </c:when>
-                    </c:choose>
+                </c:when>
+                <c:when test="${isPlayerOne == false && (winner == null || winner == '')}">
+                    <h2  class="grid" align="center" >PLAYERTWO turn....</h1>
+                </c:when>
+            </c:choose>
 
-                    <c:choose> 
+            <c:choose> 
+                <c:when test="${winner != null && winner != '' && winner != 'NOWINNER'}">
+                    <h2  class="grid" align="center" >${winner} Won!</h1>
+                </c:when>
+                <c:otherwise>
+                    <c:if test="${winner == 'NOWINNER'}">
+                        <h2  class="grid" align="center">It's a Draw!</h1>
+                    </c:if>
+                </c:otherwise>
+            </c:choose>
 
-                        <c:when test="${winner != null && winner != '' && winner != 'NOWINNER'}">
-                            <h2  class="grid" align="center" >${winner} Won!</h1>
-                            </c:when>
-                            <c:otherwise>
-                                <c:if test="${winner == 'NOWINNER'}">
-                                    <h2  class="grid" align="center">It's a Draw!</h1>
-                                    </c:if>
+            <table border="1">
+                <c:forEach var="row" items="${gameCells}" varStatus="rowIndex">
+                    <tr>
+                        <c:forEach var="cell" items="${row}" varStatus="colIndex">
+                            <td>
+                                <c:choose>
+                                    <c:when test="${cell == 'X'}">
+                                        <img src="img/ranger_red.png" alt="X"/>
+                                    </c:when>
+                                    <c:when test="${cell == 'O'}">
+                                        <img src="img/ranger_black.png" alt="O"/>
+                                    </c:when>
+                                    <c:otherwise>
 
+                                        <c:if test="${winner == null || winner == ''}">
+                                            <a href="TicTacToe?row=${rowIndex.index}&col=${colIndex.index}">
+                                            </c:if>
+                                            <img src="img/null_bg.png" alt="null"/>
+                                            <c:if test="${winner == null || winner == ''}">
+                                            </a>
+                                        </c:if>
 
-                                </c:otherwise>
-                            </c:choose>
+                                    </c:otherwise>
+                                </c:choose>
+                            </td>    
+                        </c:forEach>
+                    </tr>
+                </c:forEach>
 
-                            <table border="1">
-                                <c:forEach var="row" items="${gameCells}" varStatus="rowIndex">
-                                    <tr>
-                                        <c:forEach var="cell" items="${row}" varStatus="colIndex">
-                                            <td>
-                                                <c:choose>
-                                                    <c:when test="${cell == 'X'}">
-                                                        <img src="img/ranger_red.png" alt="X"/>
-                                                    </c:when>
-                                                    <c:when test="${cell == 'O'}">
-                                                        <img src="img/ranger_black.png" alt="O"/>
-                                                    </c:when>
-                                                    <c:otherwise>
-
-                                                        <c:if test="${winner == null || winner == ''}">
-                                                            <a href="TicTacToe?row=${rowIndex.index}&col=${colIndex.index}">
-                                                            </c:if>
-                                                            <img src="img/null_bg.png" alt="null"/>
-                                                            <c:if test="${winner == null || winner == ''}">
-                                                            </a>
-                                                        </c:if>
-
-                                                    </c:otherwise>
-                                                </c:choose>
-                                            </td>    
-                                        </c:forEach>
-                                    </tr>
-                                </c:forEach>
-
-                            </table>
+            </table>
         </div>
     </body>
 

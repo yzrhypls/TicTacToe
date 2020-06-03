@@ -22,7 +22,7 @@ public class GameEngine {
         this.cellStatus = new Cell.CellTypes[rows][cols];
     }
    
-   public Cell.CellTypes[][] initializeGame(int rows, int cols){
+    public Cell.CellTypes[][] initializeGame(int rows, int cols){
         for (int row = 0; row < rows; row++){
             for (int col = 0; col < cols; col++){
                 
@@ -35,7 +35,7 @@ public class GameEngine {
     }
    
    
-   public List<Row> getGridLines(){
+    public List<Row> getGridLines(){
        
         List<Row> rows = new ArrayList<>();
         int index = 0;
