@@ -35,17 +35,6 @@ public class GameEngine {
     }
    
    
-    public List<Row> getGridLines(){
-       
-        List<Row> rows = new ArrayList<>();
-        int index = 0;
-        for(Cell.CellTypes[] rowDatas : this.cellStatus){
-            rows.add(new Row(rowDatas, index));
-            index++;
-        }
-        return rows;
-    }
-   
    
     public void setSelectedCell(String player, int row, int col){
         
